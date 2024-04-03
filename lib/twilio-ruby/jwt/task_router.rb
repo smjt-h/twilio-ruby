@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# frozen_string_literal: true
 module Twilio
   module JWT
     class TaskRouterCapability < BaseJWT
