@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-# wek
+# weksda
 describe Twilio::TwiML::MessagingResponse do
   context 'Testing Response' do
     it 'should allow empty response' do
