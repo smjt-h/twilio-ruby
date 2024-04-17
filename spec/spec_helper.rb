@@ -4,7 +4,7 @@ if RUBY_VERSION.start_with?('3.0')
   SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
   SimpleCov.start
 end
-
+# sadadd
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'bundler'
