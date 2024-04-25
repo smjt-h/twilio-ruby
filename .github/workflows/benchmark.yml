@@ -27,7 +27,9 @@ jobs:
         run: |
           pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib gspread
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1.152.0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '1.152.0'
       - name: Run shell script to save current time
         run: |
           #!/bin/bash
