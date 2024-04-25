@@ -12,7 +12,7 @@ jobs:
     name: Build with UT
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Set up Python
@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib gspread
-      - uses: actions/checkout@v4
+      # - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1.2'
