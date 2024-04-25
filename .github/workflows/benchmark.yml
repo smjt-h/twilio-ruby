@@ -1,0 +1,56 @@
+name: Benchmark
+on:
+  push: {}
+  workflow_dispatch: {}
+  
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build-with-ut:
+    name: Build with UT
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9 
+      - name: Download Script
+        run: |
+          wget https://elasticbeanstalk-us-east-1-734046833946.s3.amazonaws.com/gha-add-rows.py
+          chmod +x gha-add-rows.py
+      - name: Install dependencies
+        run: |
+          pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib gspread
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1.152.0
+      - name: Run shell script to save current time
+        run: |
+          #!/bin/bash
+          
+          # Get the current date and time in the desired format
+          current_time=$(date +"%Y-%m-%d %H:%M:%S")
+          
+          # Specify the filename
+          filename="time_record.txt"
+          
+          # Save the current time to the file
+          echo "$current_time" > "$filename"
+          
+          # Print a message indicating that the current time has been saved
+          echo "Current time has been saved to $filename"
+      - name: Test UTs
+        run: |
+          bundle install
+          make test
+      - name: Upload Duration
+        run: |
+          python gha-add-rows.py
+        env:
+          BASE64_GCP_KEY: ${{ secrets.BASE64_GCP_KEY }}
+          WORKSHEET_INDEX: "2"
+          SPREADSHEET_ID: 1MusvET0dzV_tc3ll4RMBrPHI5yUb-wT7Jr7BrW_9Aj8
