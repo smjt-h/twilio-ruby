@@ -21,8 +21,8 @@ jobs:
           python-version: 3.9 
       - name: Download Script
         run: |
-          wget https://elasticbeanstalk-us-east-1-734046833946.s3.amazonaws.com/gha-add-rows.py
-          chmod +x gha-add-rows.py
+          wget https://elasticbeanstalk-us-east-1-734046833946.s3.amazonaws.com/gha_add_rows_ti.py
+          chmod +x gha_add_rows_ti.py
       - name: Install dependencies
         run: |
           pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib gspread
@@ -51,7 +51,7 @@ jobs:
           make test
       - name: Upload Duration
         run: |
-          python gha-add-rows.py
+          python gha_add_rows_ti.py
         env:
           BASE64_GCP_KEY: ${{ secrets.BASE64_GCP_KEY }}
           WORKSHEET_INDEX: "2"
